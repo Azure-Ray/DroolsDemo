@@ -1,0 +1,77 @@
+上周和Ziv看过Drools的三种实现方式，现在讲解最核心的一种，因为是讲解Drools的思想和实现方法，所以暂时不用过多的时间研究excel和图形的使用方法。
+
+Drools：
+我们需要注意的两个重要的关键词是逻辑（Logic）和数据（Data）。
+
+Drools分为两个主要部分：Authoring and Runtime。
+
+Authoring：创作过程涉及创建规则文件（.DRL文件）。
+Runtime：它涉及创建工作内存和管理生命周期。
+
+什么是规则引擎？
+
+Drools是Rule Engine或a Production Rule System，它使用基于规则的实现方法和Expert System来生产规则系统。
+
+它将获取的有效信息转换成一个知识库，然后用Rete模式匹配算法去进行推理。
+
+一个生产规则系统是完整的，重点是知识表达，以<简洁，没有歧义，陈述>的方式表达命题和逻辑。
+
+Rule Engine允许我们去定义<做什么 >而不是<如何做 >。
+
+Rules是经常表达的知识，“ 当有些情况发生时，然后做一些任务”。
+
+下面是Rules核心的表达方式：
+When
+    <Condition is true>
+Then
+    <Take desired Action>
+
+Drools实现并扩展了Rete算法。Drools Rete实现称为ReteOO，表示Drools对面向对象系统的Rete算法进行了增强和优化的实现。
+
+Rule Engine的优点
+
+声明式编程 （Declarative Programming）
+规则可以很容易地解决困难的问题，并得到解决方案的验证。与代码不同，规则以简单的语言编写，BA等所有人员都可以轻松阅读和验证一套规则。
+
+逻辑和数据分离（Logic and Data Separation）
+data位于“Domain Objects”中，business logic位于“Rules”中。根据项目的种类，这种分离是非常有利的。
+
+速度和可扩展性（Speed and Scalability）
+写入Drools的Rete算法已经是一个成熟的算法。在Drools的帮助下，应用程序变得非常可扩展。如果频繁的更改需求，可以添加新规则，而无需修改现有规则。
+
+知识集中化（Centralization of Knowledge）
+通过使用Rules，创建一个可执行的知识库（a knowledge base）。这是业务代码一个很好的方式。因为，规则是可读的，它们也可以用作文档。
+
+工具集成（Tool Integration）
+Eclipse等工具提供编辑和管理Rules的方法，并能够实时反馈和验证，也可以随时调试。    
+
+1、我们将为我们的Drools项目提供一 个DRL文件。
+
+DRL文件将表示考虑的一个城市（Pune）和四种类型的产品（groceries, medicines, watches, and luxury goods）。杂货，药品，手表和奢侈品
+
+tax on medicines都被认为是零。
+tax on groceries，Pune, 200%。 
+
+2、现在新加了一个城市 Nagpur。
+
+城市的tax on medicines都被认为是零。
+tax on groceries，Nagpur，100%。
+
+正常java做法：
+if("Pune".equals(city)){
+        	 
+}else if ("Nagpur".equals(city)) {
+        	 
+}
+
+...
+
+else{
+			
+}
+
+3、对于Pune城市，我们可能需要加入一些其他的税收方式 。正常做法可能需要在Pune的分支中加入更多的代码。
+
+4、调试代码。
+
+5、同样，对于咖啡的需求，只要对不同年龄段的person做出不同的规则，就可以解耦。
